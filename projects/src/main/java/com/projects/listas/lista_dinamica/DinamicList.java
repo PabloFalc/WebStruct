@@ -18,7 +18,6 @@ public class DinamicList {
     public boolean add(int value, int position){
         Node newNode = new Node(value);
 
-
         // Garantindo que a posição acessada não seja negativa
         if(position < 0){
             return false;
@@ -28,7 +27,8 @@ public class DinamicList {
         // Garantindo a segurança caso o novo elemento vire o primeiro
         if(position == 0){
             newNode.next = start; // o next pega o valor do elemento inicial
-            start = newNode; // o elemento inical pega o valor do novo elemento
+            start = newNode;
+            return true;// o elemento inical pega o valor do novo elemento
         }
 
         Node actual = start;
@@ -58,13 +58,14 @@ public class DinamicList {
     */
 
     public boolean remove(int position){
-        if(position < 0 || start !=null){
+        if(position < 0 || start == null){
             return false;
         }
 
         // remover a posição inicial
         if(position == 0){
             start = start.next;
+            System.out.println(start.value+""+start.next.value);
             return true;
         }
 
@@ -85,6 +86,7 @@ public class DinamicList {
 
         actualNode.next = actualNode.next.next;
 
+
         return true;
     }
 
@@ -96,15 +98,17 @@ public class DinamicList {
         while(actualNode!=null){
 
 
-            if(actualNode.value == value){
-                System.out.println(actualNode.value +" i: "+ i);
-                return actualNode;
 
+            if(actualNode.value == value){
+                System.out.println("valor encontrado: "+actualNode.value +" index: "+ i);
+                return actualNode;
             }
+
             actualNode = actualNode.next;
             i++;
 
         }
+        System.out.println("não encontrado");
         return null;
 
     }
