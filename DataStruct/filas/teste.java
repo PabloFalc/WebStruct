@@ -1,4 +1,6 @@
-package com.projects.filas;
+package filas;
+
+import filas.Fila;
 
 public class teste {
 

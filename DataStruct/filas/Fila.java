@@ -1,4 +1,4 @@
-package com.projects.filas;
+package filas;
 
 public class Fila {
 
