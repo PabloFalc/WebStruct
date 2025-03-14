@@ -1,6 +1,6 @@
-package filas;
+package queue;
 
-public class Fila {
+public class Queue{
 
     public Node head;
     public Node tail;

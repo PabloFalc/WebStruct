@@ -1,6 +1,6 @@
-package filas;
+package queue;
 
-import filas.Fila;
+import queue.Queue;
 
 public class teste {
 
@@ -10,7 +10,7 @@ public class teste {
 
 
 
-        Fila fila = new Fila(null, null);
+        Queue fila= new Queue(null, null);
 
         fila.Queue(10);
         fila.Queue(20);

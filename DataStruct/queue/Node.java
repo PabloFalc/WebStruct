@@ -1,4 +1,4 @@
-package filas;
+package queue;
 
 
 public class Node {
