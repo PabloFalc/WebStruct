@@ -12,12 +12,12 @@ public class teste {
 
         Queue fila= new Queue(null, null);
 
-        fila.Queue(10);
-        fila.Queue(20);
-        fila.Queue(40);
-        fila.Queue(30);
-        fila.Queue(60);
-        fila.Queue(70);
+        fila.enueue(10);
+        fila.enueue(20);
+        fila.enueue(40);
+        fila.enueue(30);
+        fila.enueue(60);
+        fila.enueue(70);
 
         System.out.println("----------------");
         fila.Dequeue();

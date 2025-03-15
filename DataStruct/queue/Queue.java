@@ -13,7 +13,7 @@ public class Queue{
 
 
 
-    public boolean Queue(int element){
+    public boolean enqueue(int element){
 
 
         if(this.head == null || this.tail == null){
