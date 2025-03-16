@@ -18,10 +18,7 @@ class DinamicList {
     }
 
     public boolean add(int value, int position) {
-        if (value == 0) {  // Verificação para valor inválido
-            return false;
-        }
-
+     
         Node newNode = new Node(value);
 
         if (position < 0){
@@ -58,11 +55,6 @@ class DinamicList {
 
         if (position == 0){
             start = start.next;
-            if (start != null) {
-                System.out.println(start.value + " " + start.next.value);
-            } else {
-                System.out.println("A lista está vazia após remoção.");
-            }
             return true;
         }
 
