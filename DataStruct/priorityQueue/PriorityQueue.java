@@ -42,7 +42,6 @@ public class PriorityQueue {
         
         if(this.length == 0){
 
-            
             this.head = newNode;
             this.tail = newNode;
             length++;
@@ -50,7 +49,6 @@ public class PriorityQueue {
 
         }
         Node current = priorityVerification(priority);
-
         
         if(this.head == current && current.priority >= priority){
             newNode.next = this.head;
@@ -75,6 +73,28 @@ public class PriorityQueue {
         return true;
     }
 
+    boolean enqueuePrioridade(int valor,int priority) {
+        Node novo = new Node(valor,priority);
+        if (length == 0) {
+            this.head = novo;
+            this.tail = novo;
+        } else {
+            Node atual = this.head;
+            while(atual.next != null && novo.priority > atual.next.priority){
+                atual = atual.next;
+            }
+            if(atual.next == null){
+                atual.next = novo;
+                this.tail = novo;
+            }else{
+                novo.next = atual.next;
+                atual.next = novo;
+            }
+        }
+        length++;
+        return true;
+    }
+
     public Node dequeue(){
 
         if(this.head == null && this.tail == null){
@@ -95,8 +115,6 @@ public class PriorityQueue {
             current = current.next;
         }
 
-        System.out.println("element: " +element.value);
-        System.out.println("current: " +current.value);
         current.next = null;
         this.tail = current;
 

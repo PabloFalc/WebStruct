@@ -79,32 +79,18 @@ public class DoubleLinkedList {
         
     }
 
-    public void printList() {
-        Node current = this.head;
-
-        if (this.head == null) {
-            System.out.println("null");
-            return;
-        }
-        // Percorre a lista e imprime no formato correto
-        while (current != null) {
-            System.out.print("("+ current.value + ") -> ");
-            current = current.next;
-        }
-        System.out.println("null");  // Indica o final da lista
-    }
-
+    
     public void removeByElement(){
         // nothing here
         return;
     }
-
+    
     public Node removeByPosition(int position){
-
+        
         // operação de remoção com lista vazia
         if(this.length == 0)throw new NullPointerException("lista vazia");
         Node node = this.head;
-
+        
         // caso a lista tenha somente um elemento
         if (this.length == 1) { 
             
@@ -113,7 +99,7 @@ public class DoubleLinkedList {
             printList();
             return node;
         }
-
+        
         // caso a posição removida seja a head
         if (position == 0) {
             this.head = node.next;
@@ -122,22 +108,22 @@ public class DoubleLinkedList {
             this.length--;
             printList();
             return node;
-
+            
         }
-
-        int iterator = 0;
-
-
         
-
+        int iterator = 0;
+        
+        
+        
+        
         while (node.next!=null &&  iterator < position) {
             node = node.next;
             iterator++;
         }
-
         
-
-
+        
+        
+        
         // caso seja o último elemento da lista
         if(node.next == null){
             node.previous.next = null;
@@ -154,8 +140,22 @@ public class DoubleLinkedList {
         printList();
         return node;
     }
+    
+    public void printList() {
+        Node current = this.head;
 
-
+        if (this.head == null) {
+            System.out.println("null");
+            return;
+        }
+        // Percorre a lista e imprime no formato correto
+        while (current != null) {
+            System.out.print("("+ current.value + ") -> ");
+            current = current.next;
+        }
+        System.out.println("null");  // Indica o final da lista
+    }
+    
     public static void main(String[] args) {
         DoubleLinkedList list = new DoubleLinkedList();
         //java DataStruct/list/DoubleLinkedList.java
