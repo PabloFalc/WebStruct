@@ -150,7 +150,7 @@ public class DoubleLinkedList {
         }
         // Percorre a lista e imprime no formato correto
         while (current != null) {
-            System.out.print("("+ current.value + ") -> ");
+            System.out.print("("+ current.value + ") <-> ");
             current = current.next;
         }
         System.out.println("null");  // Indica o final da lista
