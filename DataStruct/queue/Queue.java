@@ -1,10 +1,9 @@
 package queue;
 
-import queue.Node;
-public class Queue{
+public class Queue<Type>{
 
-    public Node head;
-    public Node tail;
+    public Node<Type> head;
+    public Node<Type> tail;
 
     public Queue(){
         this.head = null;
@@ -14,11 +13,11 @@ public class Queue{
 
 
 
-    public boolean enqueue(int element){
+    public boolean enqueue(Type element){
 
 
         if(this.head == null){
-            Node node = new Node(element, null);
+            Node<Type> node = new Node<>(element);
 
             this.tail = node;
             this.head = node;
@@ -26,7 +25,7 @@ public class Queue{
            return true;
         }
 
-        Node node = new Node(element,null);
+        Node<Type> node = new Node<>(element);
 
         node.next = this.head;
         this.head = node;
@@ -38,22 +37,22 @@ public class Queue{
     }
 
 
-    public Node Dequeue(){
+    public Type Dequeue(){
 
         if(this.head == null){
             throw new NullPointerException("operção com fila nula");
         }
         if(this.head == this.tail){
-            Node element = this.head;
+            Node<Type> element = this.head;
 
             this.head = null;
             this.tail =null;
             printQueue();
 
-            return element;
+            return element.value;
         }
-        Node element = this.tail;
-        Node actual = this.head;
+        Node<Type> element = this.tail;
+        Node<Type> actual = this.head;
 
         while (actual.next != element){
             actual = actual.next;
@@ -63,11 +62,11 @@ public class Queue{
         this.tail = actual;
 
         printQueue();
-        return element;
+        return element.value;
     }
 
     public void printQueue() {
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         if (this.head == null) {
             System.out.println("null");

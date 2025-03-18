@@ -1,14 +1,12 @@
 package deque;
 
-import deque.Deque;
-
 public class run{
 
 
     public static void main(String[] args){
 
 
-        Deque deque = new Deque();
+        Deque<Integer> deque = new Deque<>();
 
 
         deque.enqueueRigth(2);
@@ -24,7 +22,6 @@ public class run{
         deque.enqueueLeft(11);
         deque.enqueueRigth(12);
 
-        deque.printQueue();
         
         deque.dequeueRigth();
         deque.dequeueRigth();
@@ -32,16 +29,8 @@ public class run{
         deque.dequeueRigth();
         deque.dequeueRigth();
         deque.dequeueRigth();
-        // deque.printQueue();
-        // deque.dequeueLeft();
-        // deque.printQueue();
-        // deque.dequeueRigth();
-        // deque.printQueue();
-        // deque.dequeueLeft();
-        // deque.printQueue();
         
-        
-        deque.printQueue();
+    
         
 
     }

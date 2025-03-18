@@ -1,25 +1,25 @@
-package listas;
+package list;
 
-class Node {
-    public int value;
-    public Node next;
+class Node<Type> {
+    public Type value;
+    public Node<Type> next;
 
-    public Node(int value){
+    public Node(Type value){
         this.value = value;
         this.next = null;
     }
 }
 
-class DinamicList {
-    public Node start;
+class DinamicList <Type> {
+    public Node<Type> start;
 
     public DinamicList(){
         this.start = null;
     }
 
-    public boolean add(int value, int position) {
+    public boolean add(Type value, int position) {
      
-        Node newNode = new Node(value);
+        Node<Type> newNode = new Node<>(value);
 
         if (position < 0){
             return false;
@@ -31,7 +31,7 @@ class DinamicList {
             return true;
         }
 
-        Node actual = start;
+        Node<Type> actual = start;
         int iterator = 0;
 
         while (actual != null && iterator < position - 1) {
@@ -58,7 +58,7 @@ class DinamicList {
             return true;
         }
 
-        Node actualNode = start;
+        Node<Type> actualNode = start;
         int iterator = 0;
 
         while (actualNode.next != null && iterator < position - 1) {
@@ -74,13 +74,13 @@ class DinamicList {
         return true;
     }
 
-    public Node search(int value) {
-        Node actualNode = start;
+    public Type search(Type value) {
+        Node<Type> actualNode = this.start;
         int i = 0;
         while (actualNode != null) {
             if (actualNode.value == value) {
                 System.out.println("valor encontrado: " + actualNode.value + " index: " + i);
-                return actualNode;
+                return actualNode.value;
             }
 
             actualNode = actualNode.next;
@@ -91,7 +91,7 @@ class DinamicList {
     }
 
     public void printList() {
-        Node current = start;
+        Node<Type> current = start;
         while (current != null) {
             System.out.print(current.value + " ");
             current = current.next;
@@ -102,7 +102,7 @@ class DinamicList {
 
 public class Dinamic {
     public static void main(String[] argumentos) {
-        DinamicList list = new DinamicList();
+        DinamicList<Integer> list = new DinamicList<>();
 
         list.add(1, 0);
         list.add(2, 1);

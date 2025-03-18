@@ -1,11 +1,9 @@
 package deque;
 
-import deque.Node;
+public class Deque<Type> {
 
-public class Deque {
-
-    public Node head;
-    public Node tail;
+    public Node<Type> head;
+    public Node<Type> tail;
     public int length;
 
 
@@ -16,15 +14,19 @@ public class Deque {
     }
 
     // entrar pelo lado esquerdo da fila, ou seja pela head
-    public void enqueueLeft(int element){
-
-        Node newNode = new Node(element);
-
+    public void enqueueLeft(Type element){
+        
+        Node<Type> newNode = new Node<>(element);
+        
+        if(element == null){
+            throw new RuntimeException("elemento vazio");
+        }
         // verifica se o tamanho da lista é null, 
         if(this.length == 0){
             this.head = newNode;
             this.tail = newNode;
             this.length++;
+            printQueue();
             return;
         }
 
@@ -33,18 +35,24 @@ public class Deque {
         this.head.previous = newNode;
         this.head = newNode;
         this.length++;
+        printQueue();
         return;
     }
 
-    public void enqueueRigth(int element){
+    public void enqueueRigth(Type element){
 
-        Node newNode = new Node(element);
+        Node<Type> newNode = new Node<>(element);
+
+        if(element == null){
+            throw new RuntimeException("elemento vazio");
+        }
 
         // verifica se o tamanho da lista é null, 
         if(this.length == 0){
             this.head = newNode;
             this.tail = newNode;
             this.length++;
+            printQueue();
             return;
         }
 
@@ -53,20 +61,16 @@ public class Deque {
         this.tail.next = newNode;
         this.tail = newNode;
         this.length++;
+        printQueue();
         return;
 
     }
 
 
-    public Node dequeueLeft(){
+    public Type dequeueLeft(){
 
-        Node node = this.head;
-        // System.out.println("----LEFT---");
-        // System.out.println("head: "+ head.value);
-        // System.out.println("tail: "+ tail.value);
-        // System.out.println("length: "+ length);
-        // System.out.println("-------");
-
+        Node<Type> node = this.head;
+ 
         if(this.length == 0){
             throw new NullPointerException("erro, deque está vazio");
             
@@ -75,7 +79,8 @@ public class Deque {
             this.head = null;
             this.tail = null;
             this.length--;
-            return node;
+            printQueue();
+            return node.value;
         }
         this.head = this.head.next;
         this.head.previous = null;
@@ -83,18 +88,15 @@ public class Deque {
         
         
         this.length--;
-        return node;
+        printQueue();
+        return node.value;
 
     }
 
-    public Node dequeueRigth(){
+    public Type dequeueRigth(){
 
-        Node node = this.tail;
-        // System.out.println("---RIGTH----");
-        // System.out.println("tail: "+ tail.value);
-        // System.out.println("head: "+ head.value);
-        // System.out.println("length: "+ length);
-        // System.out.println("-------");
+        Node<Type> node = this.tail;
+
         
         if(this.length == 0){
             throw new NullPointerException("erro, deque está vazio");
@@ -103,14 +105,15 @@ public class Deque {
             this.head = null;
             this.tail = null;
             this.length--;
-            return node;
+            printQueue();
+            return node.value;
         }
         this.tail = this.tail.previous;
         this.tail.next = null;
         node.previous = null;
         this.length--;
-
-        return node;
+        printQueue();
+        return node.value;
         
 
 
@@ -121,7 +124,7 @@ public class Deque {
 
 
     public void printQueue() {
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         if (this.head == null) {
             System.out.println("null");

@@ -1,8 +1,5 @@
 package list;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 class Node<Type>{
     public Type value;
     public Node<Type> next;
@@ -24,7 +21,7 @@ public class CircularDoubleLinkedList<Type>{
     public CircularDoubleLinkedList(){
         this.head = null;
         this.tail = null;
-        int length = 0;
+        this.length = 0;
     }
 
 
@@ -157,7 +154,7 @@ public class CircularDoubleLinkedList<Type>{
 
 
     public void printList() {
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         if (this.head == null) {
             System.out.println("null");

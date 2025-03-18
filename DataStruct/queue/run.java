@@ -1,12 +1,12 @@
 package queue;
 
-import queue.Queue;
+
 
 public class run {
 
     public static void main( String[] asdasdsadsa){
 
-        Queue fila = new Queue();
+        Queue<Integer> fila = new Queue<>();
 
         fila.enqueue(10);
         fila.enqueue(20);

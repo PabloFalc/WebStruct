@@ -1,20 +1,20 @@
 package list;
 
-class Node {
+class Node <Type>{
 
-    public int value;
-    public Node next;
+    public Type value;
+    public Node<Type> next;
 
-    public Node(int value){
+    public Node(Type value){
         this.value = value;
         this.next = null;
     }
 }
 
 
-public class CircularLinkedList {
+public class CircularLinkedList<Type> {
     
-    public Node head;
+    public Node<Type> head;
     public int length;
     
     public CircularLinkedList(){
@@ -23,9 +23,9 @@ public class CircularLinkedList {
     }
 
 
-    public void add(int element, int position){
+    public void add(Type element, int position){
 
-        Node newNode = new Node(element);
+        Node<Type> newNode = new Node<>(element);
 
         // if (position > length -1) throw new RuntimeException("posição inválida");
         
@@ -39,7 +39,7 @@ public class CircularLinkedList {
         }
 
         int iterator = 0;
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         // garantir o loop caso a posição seja 0
         if (position <= 0) {
@@ -73,23 +73,23 @@ public class CircularLinkedList {
 
 
 
-    public Node remove(int position){
+    public Type remove(int position){
         if(position > length -1) throw new RuntimeException("Posição não existe");
         
         
         
         if(position == 0){
             
-            Node node = this.head;
+            Node<Type> node = this.head;
 
             if(length == 1){
                 this.head = null;
                 this.length--;
                 printList();
-                return node;
+                return node.value;
             }
 
-            Node tail = this.head;
+            Node<Type> tail = this.head;
             while (tail.next != this.head) {
                 tail = tail.next;
             }
@@ -100,25 +100,25 @@ public class CircularLinkedList {
             node.next = null;
             this.length--;
             printList();
-            return node;
+            return node.value;
         }
         
-        Node current = this.head;
+        Node<Type> current = this.head;
         
         for(int index = 0; index < position - 1; index++){
             current = current.next;
         }
 
-        Node node = current.next;
+        Node<Type> node = current.next;
         current.next = node.next;
         node.next = null;
         printList();
         this.length--;
-        return node;
+        return node.value;
     }
 
     public void printList() {
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         if (this.head == null) {
             System.out.println("null");
@@ -140,7 +140,7 @@ public class CircularLinkedList {
 
     public static void main(String[] args) {
         //java DataStruct/list/CircularLinkedList.java 
-        CircularLinkedList list = new CircularLinkedList();
+        CircularLinkedList<Integer> list = new CircularLinkedList<>();
 
 
         list.add(1, 0);

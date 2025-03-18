@@ -1,7 +1,5 @@
 package stack;
 
-import stack.Node;
-
 public class Stack <Type>{
 
     Node<Type> head;
@@ -91,10 +89,13 @@ public class Stack <Type>{
         stack.push(1);
         stack.push(2);
         stack.push(3);
+        System.out.println("--------");
+        
         System.out.println(stack.peek());
-
         stack.pop();
+        System.out.println("peek: "+stack.peek());
         stack.pop();
+        System.out.println("peek: "+stack.peek());
         stack.pop();
        
         

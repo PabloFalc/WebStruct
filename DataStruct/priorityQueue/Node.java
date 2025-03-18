@@ -1,13 +1,13 @@
 package priorityQueue;
 
-public class Node {
+public class Node <Type>{
     
-    public int value;
-    public Node next;
+    public Type value;
+    public Node<Type> next;
     public int priority;
 
 
-    public Node(int value,  int priority){
+    public Node(Type value,  int priority){
         this.value = value;
         this.next = null;
         this.priority = priority;

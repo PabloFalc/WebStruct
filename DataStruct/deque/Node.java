@@ -1,13 +1,13 @@
 package deque;
 
-public class Node {
+public class Node <Type> {
     
-    public int value;
-    public Node next;
-    public Node previous;
+    public Type value;
+    public Node<Type> next;
+    public Node<Type> previous;
 
 
-    public Node(int value){
+    public Node(Type value){
         this.value = value;
         this.next = null;
         this.previous = null;

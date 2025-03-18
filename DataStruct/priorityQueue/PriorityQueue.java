@@ -1,11 +1,10 @@
 package priorityQueue;
 
-import priorityQueue.Node;
 
-public class PriorityQueue {
+public class PriorityQueue<Type> {
 
-    public Node head;
-    public Node tail;
+    public Node<Type> head;
+    public Node<Type> tail;
     public int length;
 
 
@@ -17,8 +16,8 @@ public class PriorityQueue {
 
    
 
-    private Node priorityVerification(int priority){
-        Node current = this.head;
+    private Node<Type> priorityVerification(int priority){
+        Node<Type> current = this.head;
 
         for(int i = 0; i < length - 1 ;i++){
 
@@ -37,29 +36,32 @@ public class PriorityQueue {
     }
 
 
-    public boolean enqueue(int element, int priority){
-        Node newNode = new Node(element, priority);
+    public boolean enqueue(Type element, int priority){
+        Node<Type> newNode = new Node<>(element, priority);
         
         if(this.length == 0){
 
             this.head = newNode;
             this.tail = newNode;
             length++;
+            printQueue();
             return true;
 
         }
-        Node current = priorityVerification(priority);
+        Node<Type> current = priorityVerification(priority);
         
         if(this.head == current && current.priority >= priority){
             newNode.next = this.head;
             this.head = newNode;
             length++;
+            printQueue();
             return true;
         }
         else if(current == this.tail){
             current.next = newNode;
             this.tail = newNode;
             length++;
+            printQueue();
             return true;
         }
 
@@ -68,48 +70,49 @@ public class PriorityQueue {
         newNode.next = current.next;
         current.next = newNode;
 
-        
+        printQueue();
         length++;
         return true;
     }
 
-    boolean enqueuePrioridade(int valor,int priority) {
-        Node novo = new Node(valor,priority);
-        if (length == 0) {
-            this.head = novo;
-            this.tail = novo;
-        } else {
-            Node atual = this.head;
-            while(atual.next != null && novo.priority > atual.next.priority){
-                atual = atual.next;
-            }
-            if(atual.next == null){
-                atual.next = novo;
-                this.tail = novo;
-            }else{
-                novo.next = atual.next;
-                atual.next = novo;
-            }
-        }
-        length++;
-        return true;
-    }
+    // boolean enqueuePrioridade(Type valor,int priority) {
+    //     Node<Type> novo = new Node<>(valor,priority);
+    //     if (length == 0) {
+    //         this.head = novo;
+    //         this.tail = novo;
+    //     } else {
+    //         Node<Type> atual = this.head;
+    //         while(atual.next != null && novo.priority > atual.next.priority){
+    //             atual = atual.next;
+    //         }
+    //         if(atual.next == null){
+    //             atual.next = novo;
+    //             this.tail = novo;
+    //         }else{
+    //             novo.next = atual.next;
+    //             atual.next = novo;
+    //         }
+    //     }
+    //     length++;
+    //     return true;
+    // }
 
-    public Node dequeue(){
+    public Type dequeue(){
 
         if(this.head == null && this.tail == null){
             throw new NullPointerException("operção com fila nula");
         }
         if(this.head == this.tail){
-            Node element = this.head;
+            Node<Type> element = this.head;
 
             this.head = null;
             this.tail =null;
-
-            return element;
+            this.length--;
+            printQueue();
+            return element.value;
         }
-        Node element = this.tail;
-        Node current = this.head;
+        Node<Type> element = this.tail;
+        Node<Type> current = this.head;
 
         while (current.next != element){
             current = current.next;
@@ -117,16 +120,16 @@ public class PriorityQueue {
 
         current.next = null;
         this.tail = current;
-
-        System.out.println("Seu elemento foi: "+ element.value);
-        return element;
+        this.length--;
+        printQueue();
+        return element.value;
     }
 
 
 
 
     public void printQueue() {
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         if (this.head == null) {
             System.out.println("null");

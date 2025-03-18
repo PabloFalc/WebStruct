@@ -1,15 +1,15 @@
 package queue;
 
 
-public class Node {
+public class Node<Type> {
     
-    public int value;
-    public Node next;
+    public Type value;
+    public Node<Type> next;
 
 
-    public Node(int value, Node next){
+    public Node(Type value){
         this.value = value;
-        this.next = next;
+        this.next = null;
     }
 
 }
