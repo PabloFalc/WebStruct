@@ -1,4 +1,5 @@
-package priorityQueue;
+import priority;
+
 public class run {
 
 

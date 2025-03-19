@@ -1,23 +1,21 @@
 package list;
+class Node {
 
-
-class Node <Type>{
-
-    Type value;
-    Node<Type> next;
-    Node<Type> previous;
+    int value;
+    Node next;
+    Node previous;
     
 
-    public Node(Type value){
+    public Node(int value){
         this.value = value;
         this.next = null;
         this.previous = null;
     }
 }
 
-public class DoubleLinkedList <Type>{
+public class DoubleLinkedList {
 
-    public Node<Type> head;
+    public Node head;
     public int length;
 
 
@@ -27,8 +25,8 @@ public class DoubleLinkedList <Type>{
     }
 
 
-    public void add(Type element,int position){
-        Node<Type> newNode = new Node<>(element);
+    public void add(int element,int position){
+        Node newNode = new Node(element);
 
         // caso a lista esteja vazia
         if(this.length == 0){
@@ -41,7 +39,7 @@ public class DoubleLinkedList <Type>{
             throw new NullPointerException("posição inválida");
         }
 
-        Node<Type> current = this.head;
+        Node current = this.head;
         int itarator = 0;
 
         
@@ -85,11 +83,11 @@ public class DoubleLinkedList <Type>{
         return;
     }
     
-    public Type removeByPosition(int position){
+    public Node removeByPosition(int position){
         
         // operação de remoção com lista vazia
         if(this.length == 0)throw new NullPointerException("lista vazia");
-        Node<Type> node = this.head;
+        Node node = this.head;
         
         // caso a lista tenha somente um elemento
         if (this.length == 1) { 
@@ -97,7 +95,7 @@ public class DoubleLinkedList <Type>{
             this.head = null;
             this.length--;
             printList();
-            return node.value;
+            return node;
         }
         
         // caso a posição removida seja a head
@@ -107,7 +105,7 @@ public class DoubleLinkedList <Type>{
             node.next = null;
             this.length--;
             printList();
-            return node.value;
+            return node;
             
         }
         
@@ -130,7 +128,7 @@ public class DoubleLinkedList <Type>{
             node.previous = null;
             this.length--;
             printList();
-            return node.value;
+            return node;
         }
         // caso o elemento esteja entre dois outros elementos 
         node.next.previous = node.previous;
@@ -138,11 +136,11 @@ public class DoubleLinkedList <Type>{
         node.previous = null;
         node.next = null;
         printList();
-        return node.value;
+        return node;
     }
     
     public void printList() {
-        Node<Type> current = this.head;
+        Node current = this.head;
 
         if (this.head == null) {
             System.out.println("null");
@@ -150,14 +148,14 @@ public class DoubleLinkedList <Type>{
         }
         // Percorre a lista e imprime no formato correto
         while (current != null) {
-            System.out.print("("+ current.value + ") <-> ");
+            System.out.print("("+ current.value + ") -> ");
             current = current.next;
         }
         System.out.println("null");  // Indica o final da lista
     }
     
     public static void main(String[] args) {
-        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
+        DoubleLinkedList list = new DoubleLinkedList();
         //java DataStruct/list/DoubleLinkedList.java
 
         list.add(2, 0);
@@ -170,14 +168,14 @@ public class DoubleLinkedList <Type>{
         list.add(4, 0);
         list.add(10, 3);
         System.out.println("------------");
-        Integer element = list.removeByPosition(7);
-        System.out.println(element);
+        Node element = list.removeByPosition(7);
+        System.out.println(element.value);
         element = list.removeByPosition(7);
-        System.out.println(element);
+        System.out.println(element.value);
         element = list.removeByPosition(0);
-        System.out.println(element);
+        System.out.println(element.value);
         element = list.removeByPosition(2);
-        System.out.println(element);
+        System.out.println(element.value);
 
     }
 }

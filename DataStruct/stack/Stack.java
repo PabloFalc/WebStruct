@@ -51,8 +51,6 @@ public class Stack <Type>{
         return isEmpty() ? null : this.head.value;
     }
 
-
-
     public boolean isEmpty(){
         return size() == 0 ? true : false; 
     }
