@@ -1,4 +1,4 @@
-import priority;
+package priority;
 
 public class run {
 

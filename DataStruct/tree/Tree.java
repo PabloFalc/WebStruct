@@ -1,8 +1,8 @@
 package tree;
 
-import javax.management.RuntimeErrorException;
+import stack.Stack;
 
-public class Tree<Type extends Comparable> {
+public class Tree<Type extends Comparable<Type>> {
 
     public Node<Type> root;
     
@@ -12,37 +12,42 @@ public class Tree<Type extends Comparable> {
     }
 
 
-    public insert(Type element){
+    public void insert(Type element){
 
         if (element == null) {
             throw new RuntimeException("elemento nulo");
         }
 
-
+        
         Node<Type> node = new Node<>(element); 
-        Node<Type> current = this.root;
         if(this.root == null){
             this.root = node;
         }
+        Node<Type> current = this.root;
 
         while(true){    
             // se o node for menor que o valor
-            if(node.value.compareTo(current.value) ==  -1 ){
+            if(current.value.compareTo(element) < 1){
                 if(current.left == null){
                     current.left = node;
+                    System.out.println("menor");
+                    System.out.println("loop esqerdo");
                     break;
                 }
                 else{
+                    System.out.println("loop esqerdo");
                     current = current.left;
                 }
             }// node.value > current.value
             else{
-                if(current.rigth == null){
-                    current.rigth = node;
+                if(current.right == null){
+                    current.right = node;
+                    System.out.println("maior");
                     break;
                 }
                 else{
-                    current = current.rigth;
+                    System.out.println("Loop direito");
+                    current = current.right;
                 }
             }
         }
@@ -56,40 +61,117 @@ public class Tree<Type extends Comparable> {
 
     */
 
-    public Type inOrder(){
-        Node<Type> current = this.root;
-
-        
-
-
-    }
-
+    
     public Type delete(Type element){
-
+        
         if(this.root == null){
             throw new RuntimeException("A árvore está nula");
         }
+        return element;
+    }
+  
+    
+
+    private void inOrder(Node <Type> current, Stack<Type> nodeStack){
+        if (current == null) {
+            return;
+        }
+        inOrder(current.left, nodeStack);
+        nodeStack.push(current.value);
+        inOrder(current.right, nodeStack);
     }
 
+    public Stack<Type> getInOrderStack(){
+        Stack<Type> nodeStack = new Stack<>();
+        inOrder(this.root, nodeStack);
+        nodeStack.printStack();
+        return nodeStack;
+    }
+    
+
+    private void preOrder(Node <Type> current, Stack<Type> nodeStack){
+
+        if(current == null){
+            return;
+        }
+        nodeStack.push(current.value);
+        preOrder(current.left, nodeStack);
+        preOrder(current.right, nodeStack);
+    }
+
+    public Stack<Type> getPreOrderStack(){
+        Stack<Type> nodeStack = new Stack<>();
+        preOrder(this.root, nodeStack);
+        nodeStack.printStack();
+        return nodeStack;
+    }
+    
+
+    private void posOrder(Node <Type> current, Stack<Type> nodeStack){
+
+        if(current == null){
+            return;
+        }
+        posOrder(current.left, nodeStack);
+        posOrder(current.right, nodeStack);
+        nodeStack.push(current.value);
+    }
+
+    public Stack<Type> getPosOrderStack(){
+        Stack<Type> nodeStack = new Stack<>();
+        posOrder(this.root, nodeStack);
+        nodeStack.printStack();
+        return nodeStack;
+    }
+    
 
 
     public int countNodes(){
-        // retorna o número total de nós da arvore
+       return 0;
     }
 
     public int height(Type element){
-        // altura de um nó até o outro
+        
+        return 0;
     }
 
     public Type seach(Type element){
-        /*
-            Se o valor for menor que o nó atual, a busca continua na subárvore esquerda.
-            Se o valor for maior que o nó atual, a busca continua na subárvore direita.
-            Se o valor for igual ao nó atual, significa que encontramos o valor.
-         */
+        Node<Type> node = new Node<>(element);
+        Node<Type> current = this.root;
+
+        while(true){
+            if(current == null){
+                return null;
+            }
+            
+            if(current.value.compareTo(node.value) == 1){
+                current = current.left;
+            }
+            else if(current.value.compareTo(node.value) == -1){
+                current = current.right;
+            }
+            break;
+        }
+
+
+
+        return element;
     }
 
 
+    public static void main(String[] args) {
+        Tree<Integer> tree = new Tree<>();
 
+        tree.insert(20);
+        tree.insert(15);
+        tree.insert(18);
+        // tree.insert(10);
+        // tree.insert(7);
+        // tree.insert(11);
+        // tree.insert(30);
+        // tree.insert(25);
+        // tree.insert(31);
+        tree.getInOrderStack();
+    }
 
 }

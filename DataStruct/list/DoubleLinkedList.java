@@ -1,21 +1,26 @@
 package list;
-class Node {
 
-    int value;
-    Node next;
-    Node previous;
+import java.lang.reflect.Type;
+
+@SuppressWarnings("hiding")
+class Node <Type> {
+
+    Type value;
+    Node<Type> next;
+    Node<Type> previous;
     
 
-    public Node(int value){
+    public Node(Type value){
         this.value = value;
         this.next = null;
         this.previous = null;
     }
 }
 
-public class DoubleLinkedList {
+@SuppressWarnings("hiding")
+public class DoubleLinkedList<Type> {
 
-    public Node head;
+    public Node<Type> head;
     public int length;
 
 
@@ -25,8 +30,8 @@ public class DoubleLinkedList {
     }
 
 
-    public void add(int element,int position){
-        Node newNode = new Node(element);
+    public void add(Type element,int position){
+        Node<Type> newNode = new Node<>(element);
 
         // caso a lista esteja vazia
         if(this.length == 0){
@@ -39,7 +44,7 @@ public class DoubleLinkedList {
             throw new NullPointerException("posição inválida");
         }
 
-        Node current = this.head;
+        Node<Type> current = this.head;
         int itarator = 0;
 
         
@@ -83,11 +88,11 @@ public class DoubleLinkedList {
         return;
     }
     
-    public Node removeByPosition(int position){
+    public Type removeByPosition(int position){
         
         // operação de remoção com lista vazia
         if(this.length == 0)throw new NullPointerException("lista vazia");
-        Node node = this.head;
+        Node<Type> node = this.head;
         
         // caso a lista tenha somente um elemento
         if (this.length == 1) { 
@@ -95,7 +100,7 @@ public class DoubleLinkedList {
             this.head = null;
             this.length--;
             printList();
-            return node;
+            return node.value;
         }
         
         // caso a posição removida seja a head
@@ -105,7 +110,7 @@ public class DoubleLinkedList {
             node.next = null;
             this.length--;
             printList();
-            return node;
+            return node.value;
             
         }
         
@@ -128,7 +133,7 @@ public class DoubleLinkedList {
             node.previous = null;
             this.length--;
             printList();
-            return node;
+            return node.value;
         }
         // caso o elemento esteja entre dois outros elementos 
         node.next.previous = node.previous;
@@ -136,11 +141,11 @@ public class DoubleLinkedList {
         node.previous = null;
         node.next = null;
         printList();
-        return node;
+        return node.value;
     }
     
     public void printList() {
-        Node current = this.head;
+        Node<Type> current = this.head;
 
         if (this.head == null) {
             System.out.println("null");
@@ -155,7 +160,7 @@ public class DoubleLinkedList {
     }
     
     public static void main(String[] args) {
-        DoubleLinkedList list = new DoubleLinkedList();
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         //java DataStruct/list/DoubleLinkedList.java
 
         list.add(2, 0);
@@ -168,14 +173,14 @@ public class DoubleLinkedList {
         list.add(4, 0);
         list.add(10, 3);
         System.out.println("------------");
-        Node element = list.removeByPosition(7);
-        System.out.println(element.value);
+        Integer element = list.removeByPosition(7);
+        System.out.println(element);
         element = list.removeByPosition(7);
-        System.out.println(element.value);
+        System.out.println(element);
         element = list.removeByPosition(0);
-        System.out.println(element.value);
+        System.out.println(element);
         element = list.removeByPosition(2);
-        System.out.println(element.value);
+        System.out.println(element);
 
     }
 }
