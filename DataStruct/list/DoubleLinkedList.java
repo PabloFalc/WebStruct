@@ -1,8 +1,6 @@
 package list;
 
-import java.lang.reflect.Type;
 
-@SuppressWarnings("hiding")
 class Node <Type> {
 
     Type value;
@@ -17,7 +15,7 @@ class Node <Type> {
     }
 }
 
-@SuppressWarnings("hiding")
+
 public class DoubleLinkedList<Type> {
 
     public Node<Type> head;

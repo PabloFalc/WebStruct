@@ -11,7 +11,6 @@ public class Tree<Type extends Comparable<Type>> {
         this.root = null;
     }
 
-
     public void insert(Type element){
 
         if (element == null) {
@@ -28,132 +27,207 @@ public class Tree<Type extends Comparable<Type>> {
 
         while(true){    
             // se o node for menor que o valor
-            if(current.value.compareTo(element) < 1){
+            if(current.value.compareTo(element) > 0){
                 if(current.left == null){
                     current.left = node;
-                    System.out.println("menor");
-                    System.out.println("loop esqerdo");
                     break;
                 }
                 else{
-                    System.out.println("loop esqerdo");
                     current = current.left;
                 }
             }// node.value > current.value
             else{
                 if(current.right == null){
                     current.right = node;
-                    System.out.println("maior");
                     break;
                 }
                 else{
-                    System.out.println("Loop direito");
                     current = current.right;
                 }
             }
         }
     }
-
-    /*
-    in-Order -> vai descendo pela esquerda até o final, dps vai pra direita, sobe e vai pra esquerda
-
-    pre-Order ->
-
-
-    */
-
     
     public Type delete(Type element){
-        /*
-        casos:
-
-        não tem filho
-        tem filho so de um lado
-        tem filho dos dois lados
-
-
-
-
-         */
+     
         if(this.root == null){
             throw new RuntimeException("A árvore está nula");
         }
-
-        Node<Type> current = this.root;
+    
+        System.out.println("Removed element: "+ element);
         Node<Type> currentParent = null;
+        Node<Type> current = this.root;
 
         while (current!=null) {
             // break pra parar a busca
             if(current.value.equals(element)){
-              break;  
+                break;  
             }
             // caso o elemento seja menor que o atual
-            else if(current.value.compareTo(element) < 1){
+            else if(element.compareTo(current.value) > 0){
                 currentParent = current;
-                current = current.left;
+                current = current.right;
             }
             // caso o elemento seja maior que o atual;
             else{
                 currentParent = current;
-                current = current.right;
+                current = current.left;
             }
             
         }
-        // o atual tem  fihlos em ambos os lados
-        if (current.left != null && current.right != null) {
-            
+        if(current == null){
+            System.out.println("elemento não encontrado");
+            return null;
         }
-        // o atual tem filhos a esquerda
-        else if(current.left != null){
+       
 
-        }
+
+
         // o atual tem filhos a direita
-        else if (current.right != null){
-
+        if (current.right != null){
+            System.out.println("caiu no current.right");
+            System.out.println("this.root.right" + current.right.value);
+            System.out.println("----------");
+            
             Node<Type> replacement = current.right;
             Node<Type> replacementParent = current;
-
-
+            System.out.println("replecenment antes do loop: " + replacement.value);
+            System.out.println("replecenmentPArent antes do loop: " + replacementParent.value);
+            System.out.println("!!!!!!!!!!!!!!!!!!!");
+            
+            
             while (replacement.left != null) {
+                System.out.println("++++++++++++++++++++++++++");
                 replacementParent = replacement;
-                replacement = replacement.left;  
+                replacement = replacement.left; 
+                
+                System.out.println("replecement loop: "+ replacement.value);
+                System.out.println("replecementPAi loop: "+ replacementParent.value);
             }
-
-
+            System.out.println("replecement.parent.left "+ replacementParent.left.value);
+            // garantir que o replacementParent vai se desconectar de replacement
             if(replacement.value.compareTo(replacementParent.value) < 1){
                 replacementParent.left = null;
             }
             else{
-                replacement.right = null;
+                replacementParent.right = null;
+            }
+
+            if(currentParent != null){
+                if (currentParent.value.compareTo(current.value) > 0) {
+                    replacement.left = current.left;
+                    replacement.right = current.right;
+                    currentParent.left = replacement;
+                }
+                else{
+                    currentParent.right = replacement;
+                }
+            }// caso o removido seja a raiz
+            else{
+                System.out.println("current Parent deu null");
+                System.out.println(current.left.value);
+                replacement.left = current.left;
+                replacement.right = current.right;
+
+                // System.out.println(replacement.right.value);
+                this.root = replacement;
             }
             
-            if (currentParent.value.compareTo(current.value) < 1) {
-                currentParent.left = replacement;
+        }
+        // o atual tem filhos a esquerda
+        else if(current.left != null){
+            System.out.println("caiu no current.left");
+
+            Node<Type> replacement = current.left;
+            Node<Type> replacementParent = current;
+            System.out.println("replecenment antes do loop: " + replacement.value);
+            System.out.println("replecenmentPArent antes do loop: " + replacementParent.value);
+            
+            
+            
+            while (replacement.right != null) {
+                replacementParent = replacement;
+                replacement = replacement.right;  
+                System.out.println("replecement loop: "+ replacement.value);
+                System.out.println("replecementPAi loop: "+ replacementParent.value);
+            }
+            System.out.println("replecement.parent.left "+ replacementParent.left.value);
+            //garantir que o o replacementPArent remova as ligações com replacemnet
+            if(replacement.value.compareTo(replacementParent.value) < 1){
+                replacementParent.left = null;
             }
             else{
-                currentParent.right = replacement;
+                replacementParent.right = null;
             }
-            
+
+            if(currentParent != null){   
+                if (currentParent.value.compareTo(current.value) > 0) {
+                    replacement.left = current.left;
+                    replacement.right = current.right;
+                    currentParent.left = replacement;
+                    return current.value;
+                }
+                else{
+                    replacement.left = current.left;
+                    replacement.right = current.right;
+                    currentParent.right = replacement;
+                    return current.value;
+                }     
+            }// caso o removido seja raiz
+            else{
+                replacement.left = current.left;
+                replacement.right = current.right;
+                this.root =replacement;
+            }
+
         }
         // o atual não tem filhos
         else{
-            if(currentParent.value.compareTo(element) < 1){
-                currentParent.left = null;
-                return current.value;
+            if(currentParent != null){
+                System.out.println("não tem filhos");
+                if(currentParent.value.compareTo(current.value) > 0){
+                    currentParent.left = null;
+                    return current.value;
+                }
+                else{
+                    currentParent.right = null;
+                }
             }
             else{
-                currentParent.right = null;
-                return current.value;
+                this.root = null;
+                System.out.println("elemento era raiz e foi removido");
+            }
+            
+        }
+        
+        
+
+        return current.value;
+    }
+  
+    private void removeIfRoot(){
+        if(hasRight(this.root)){
+            Node<Type> repParent = null;
+            Node<Type> replacement = this.root.right;
+            
+            while(hasLeft(replacement)){
+                repParent = replacement;
+                replacement = replacement.left;
             }
 
         }
 
 
 
-        return element;
     }
-  
-    
+
+    private boolean hasLeft(Node<Type> node){
+        return (node.left != null);
+    }
+
+    private boolean hasRight(Node<Type> node){
+        return (node.right != null);
+    }
 
     private void inOrder(Node <Type> current, Stack<Type> nodeStack){
         if (current == null) {
@@ -167,7 +241,7 @@ public class Tree<Type extends Comparable<Type>> {
     public Stack<Type> getInOrderStack(){
         Stack<Type> nodeStack = new Stack<>();
         inOrder(this.root, nodeStack);
-        nodeStack.printStack();
+ 
         return nodeStack;
     }
     
@@ -185,7 +259,7 @@ public class Tree<Type extends Comparable<Type>> {
     public Stack<Type> getPreOrderStack(){
         Stack<Type> nodeStack = new Stack<>();
         preOrder(this.root, nodeStack);
-        nodeStack.printStack();
+ 
         return nodeStack;
     }
     
@@ -203,7 +277,7 @@ public class Tree<Type extends Comparable<Type>> {
     public Stack<Type> getPostOrderStack(){
         Stack<Type> nodeStack = new Stack<>();
         postOrder(this.root, nodeStack);
-        nodeStack.printStack();
+ 
         return nodeStack;
     }
     
@@ -267,14 +341,25 @@ public class Tree<Type extends Comparable<Type>> {
         tree.insert(30);
         tree.insert(25);
         tree.insert(31);
-        System.out.println("------IN---------");
+        // System.out.println("-------------------");
+        // tree.delete(15);
+        // tree.getInOrderStack();
+        // System.out.println("-------------------");
+        // tree.delete(18);
+        // tree.getInOrderStack();
+        // System.out.println("-------------------");
+        tree.delete(20);
         tree.getInOrderStack();
-        System.out.println("-------Pre--------");
-        tree.getPreOrderStack();
-        System.out.println("-------Post--------");
-        tree.getPostOrderStack();
-
-        System.out.println(tree.height(11));
+        tree.delete(tree.root.value);
+        tree.getInOrderStack();
+        tree.delete(tree.root.value);
+        tree.getInOrderStack();
+        tree.delete(tree.root.value);
+        tree.getInOrderStack();
+        tree.delete(tree.root.value);
+        tree.getInOrderStack();
+        tree.delete(tree.root.value);
+        tree.getInOrderStack();
     }
 
 }
