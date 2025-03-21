@@ -159,6 +159,35 @@ public class DoubleLinkedList<Type> {
         System.out.println("null");  // Indica o final da lista
     }
     
+
+    public void organizarPar(){
+
+        Node<Type> current = this.head;
+        Node<Type> pairList;
+        Node<Type> currentParent = null;
+      
+
+        while (current.next != null) {
+
+            verificarParidade(current);
+
+            currentParent = current;
+            current = current.next;
+
+        }
+    }
+
+    public void verificarParidade(Node<Type> node){
+        if((Integer) node %2){
+            this.head = this.head.next;
+            node.next = null;
+        }
+        else if((Integer) node%2 ==0){
+
+        }
+    }
+
+
     public static void main(String[] args) {
         DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         //java DataStruct/list/DoubleLinkedList.java
