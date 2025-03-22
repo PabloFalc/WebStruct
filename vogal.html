@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contador de Vogais</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }
+            input,
+            button {
+                padding: 10px;
+                font-size: 16px;
+                margin-top: 10px;
+            }
+            #resultado {
+                margin-top: 15px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Contador de Vogais</h1>
+        <label for="texto">Digite seu texto:</label><br />
+        <input
+            type="text"
+            id="texto"
+            placeholder="Digite aqui..."
+            size="50"
+        /><br />
+        <button onclick="contarVogais()">Contar Vogais</button>
+
+        <p id="resultado"></p>
+
+        <script>
+            function contarVogais() {
+                const texto = document
+                    .getElementById("texto")
+                    .value.toLowerCase();
+                const vogais = texto.match(/[aeiouáéíóúàèìòùâêîôûãõ]/gi);
+                const quantidade = vogais ? vogais.length : 0;
+                document.getElementById(
+                    "resultado"
+                ).textContent = `Quantidade de vogais: ${quantidade}`;
+            }
+        </script>
+    </body>
+</html>
