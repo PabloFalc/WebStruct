@@ -9,13 +9,6 @@ class Node{
     }
 }
 
-
-
-
-
-
-
-
 // deque class
 public class ex2 {
     
@@ -26,7 +19,7 @@ public class ex2 {
     public int length;
 
 
-    public Deque(){
+    public ex2(){
         this.head = null;
         this.tail = null;
         this.length = 0;
@@ -35,7 +28,7 @@ public class ex2 {
     // entrar pelo lado esquerdo da fila, ou seja pela head
     public void enqueueLeft(int element){
         
-        Node newNode = new Node<>(element);
+        Node newNode = new Node(element);
         
         // verifica se o tamanho da lista é null, 
         if(this.length == 0){
@@ -48,7 +41,7 @@ public class ex2 {
 
         // entro pelo lado esquerdo, e agora é a head
         newNode.next = this.head;
-        this.head.previous = newNode;
+        this.head.prev = newNode;
         this.head = newNode;
         this.length++;
         printQueue();
@@ -57,7 +50,7 @@ public class ex2 {
 
     public void enqueueRigth(int element){
 
-        Node newNode = new Node<>(element);
+        Node newNode = new Node(element);
 
         
 
@@ -71,7 +64,7 @@ public class ex2 {
         }
 
         // entro pelo lado direito, ou seja pela tail
-        newNode.previous = this.tail;
+        newNode.prev = this.tail;
         this.tail.next = newNode;
         this.tail = newNode;
         this.length++;
@@ -97,7 +90,7 @@ public class ex2 {
             return node.value;
         }
         this.head = this.head.next;
-        this.head.previous = null;
+        this.head.prev = null;
         node.next = null;
         
         
@@ -122,9 +115,9 @@ public class ex2 {
             printQueue();
             return node.value;
         }
-        this.tail = this.tail.previous;
+        this.tail = this.tail.prev;
         this.tail.next = null;
-        node.previous = null;
+        node.prev = null;
         this.length--;
         printQueue();
         return node.value;
@@ -153,13 +146,47 @@ public class ex2 {
         System.out.println("null");  // Indica o final da lista
     }
 
-    public void moverDeque(){
-        return;
+    public void moverDeque(int quant){
+        Node current = this.tail;
+
+        if(quant > this.length){
+            throw new RuntimeException("quantidade maior que o tamanho da lista");
+        }
+        else if(quant == this.length){
+            System.out.println("elementos já estão ordenados");
+            return;
+        }
+
+        for(int i = 0; i< quant; i++){
+            current = current.prev;
+        }
+
+        this.tail.next = this.head;
+        this.head.prev = this.tail;
+        this.head = current;
+        this.tail = current.prev;
+        this.tail.next = null;
+        this.head.prev = null;
+        printQueue();
     }
 
 
 
     public static void main(String[] args){
+
+        ex2 deque = new ex2();
+
+        deque.enqueueRigth(1);
+        deque.enqueueRigth(2);
+        deque.enqueueRigth(3);
+        // deque.enqueueRigth(6);
+        // deque.enqueueRigth(0);
+        // deque.enqueueRigth(7);
+        // deque.enqueueRigth(8);
+        System.out.println("----------------");
+
+        deque.moverDeque(0);
+        // deque.moverDeque(1);
 
     }
 
