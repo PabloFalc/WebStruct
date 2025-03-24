@@ -5,13 +5,13 @@ class Node <Type> {
 
     Type value;
     Node<Type> next;
-    Node<Type> previous;
+    Node<Type> prev;
     
 
     public Node(Type value){
         this.value = value;
         this.next = null;
-        this.previous = null;
+        this.prev = null;
     }
 }
 
@@ -52,7 +52,7 @@ public class DoubleLinkedList<Type> {
         }
 
         if (position <= 0){
-            current.previous = newNode;
+            current.prev = newNode;
             newNode.next = current;
             this.head = newNode;
             this.length++;
@@ -62,7 +62,7 @@ public class DoubleLinkedList<Type> {
         // caso o elemento queira ser add no final da lista
         else if(position == this.length){
             current.next = newNode;
-            newNode.previous = current;
+            newNode.prev = current;
             this.length++;
             printList();
             return;
@@ -70,10 +70,10 @@ public class DoubleLinkedList<Type> {
         
         // pra add em uma posição entre outros dois elementos
         newNode.next = current;
-        newNode.previous = current.previous;
+        newNode.prev = current.prev;
         
-        current.previous.next = newNode;
-        current.previous = newNode;
+        current.prev.next = newNode;
+        current.prev = newNode;
         this.length++;
         printList();
         return;
@@ -104,7 +104,7 @@ public class DoubleLinkedList<Type> {
         // caso a posição removida seja a head
         if (position == 0) {
             this.head = node.next;
-            this.head.previous = null;
+            this.head.prev = null;
             node.next = null;
             this.length--;
             printList();
@@ -127,16 +127,16 @@ public class DoubleLinkedList<Type> {
         
         // caso seja o último elemento da lista
         if(node.next == null){
-            node.previous.next = null;
-            node.previous = null;
+            node.prev.next = null;
+            node.prev = null;
             this.length--;
             printList();
             return node.value;
         }
         // caso o elemento esteja entre dois outros elementos 
-        node.next.previous = node.previous;
-        node.previous.next = node.next;
-        node.previous = null;
+        node.next.prev = node.prev;
+        node.prev.next = node.next;
+        node.prev = null;
         node.next = null;
         printList();
         return node.value;
