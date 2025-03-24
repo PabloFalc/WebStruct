@@ -123,22 +123,64 @@ public class DinamicList <Type> {
                         firstPair = current;
                         lastPair = current;
                     }
-
-                    currentParent.next = current.next;
-                    current.next = null;
-                    lastPair.next = current;
-                    lastPair = current; 
-                    current = currentParent.next;
                 }
+                currentParent.next = current.next;
+                current.next = null;
+                lastPair.next = current;
+                lastPair = current; 
+                current = currentParent.next;
+                
+            }
+        }
+    }
 
+
+    private boolean isOdd(Node<Type> node){
+        return (Integer) node.value %2 != 0 ? true : false;
+    }
+
+
+
+    public void pairOrder(){
+        if (this.head == null || this.head.next == null) throw new RuntimeException("lista vazia");
+
+        Node<Type> breakingPoint = this.head;
+        Node<Type> current = this.head;
+        Node<Type> currentParent = null;
+
+        System.out.println("currentvalue next: "+current.next.value);
+
+
+        while(current != null){
+            
+            if(isOdd(current)){
+                if(!isOdd(this.head)){
+                    System.out.println("cai aqui");
+                    currentParent.next = current.next;
+                    current.next = this.head;
+                    this.head = current;
+                    breakingPoint = this.head;
+               }
+               else if(current == this.head){
+                    currentParent = current;
+               }
+               else{
+                    System.out.println("valor current"+current.value);
+                    System.out.println("this.head"+head.value);
+                    currentParent.next = current.next;
+                    current.next = breakingPoint.next;
+                    breakingPoint.next = current;
+                    breakingPoint = current;
+               }
+               current = currentParent.next;
             }
             else{
                 currentParent = current;
                 current = current.next;
             }
         }
-        current.next = firstPair;
-        printList();
+        // current.next = firstPair;
+        // printList();
     }
 
 
@@ -151,22 +193,31 @@ public class DinamicList <Type> {
     public static void main(String[] argumentos) {
         DinamicList<Integer> list = new DinamicList<>();
 
-        //java DataStruct/list/DinamicList.java
+        //       java DataStruct/list/DinamicList.java
 
-        list.add(2, 0);
-        list.add(1, 1);
-        list.add(3, 2);
-        list.add(4, 3);
-        list.add(9, 4);
-        list.add(6, 5);
-        list.add(10, 6);
-        list.add(15, 7);
-        list.add(20, 8);
-        list.add(40, 2);
-        list.add(42, 9);
-        list.add(44, 10);
         // list.move();
         list.move();
+        list.add(1, 0);
+        list.add(0, 1);
+        list.add(2, 2);
+        
+        list.add(4, 3);
+        list.add(9, 4);
+        list.add(25, 5);
+        list.add(12, 6);
+        
+        list.add(20, 7);
+        list.add(15, 8);
+        list.printList();
+        System.out.println("------Depois da ordem---------");
+        list.pairOrder();
+        list.printList();
+        list.add(155, 9);
+        list.printList();
+        list.pairOrder();
+        list.printList();
         
     }
 }
+
+
