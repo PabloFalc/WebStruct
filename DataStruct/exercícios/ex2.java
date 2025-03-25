@@ -9,13 +9,6 @@ class Node{
     }
 }
 
-
-
-
-
-
-
-
 // deque class
 public class ex2 {
     
@@ -41,15 +34,14 @@ public class ex2 {
         if(this.length == 0){
             this.head = newNode;
             this.tail = newNode;
-            this.length++;
-            printQueue();
-            return;
+        }
+        else{
+            // entro pelo lado esquerdo, e agora é a head
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode;
         }
 
-        // entro pelo lado esquerdo, e agora é a head
-        newNode.next = this.head;
-        this.head.prev = newNode;
-        this.head = newNode;
         this.length++;
         printQueue();
         return;
@@ -65,15 +57,14 @@ public class ex2 {
         if(this.length == 0){
             this.head = newNode;
             this.tail = newNode;
-            this.length++;
-            printQueue();
-            return;
         }
+        else{
+            // entro pelo lado direito, ou seja pela tail
+            newNode.prev = this.tail;
+            this.tail.next = newNode;
+            this.tail = newNode;
 
-        // entro pelo lado direito, ou seja pela tail
-        newNode.prev = this.tail;
-        this.tail.next = newNode;
-        this.tail = newNode;
+        }
         this.length++;
         printQueue();
         return;
@@ -153,13 +144,47 @@ public class ex2 {
         System.out.println("null");  // Indica o final da lista
     }
 
-    public void moverDeque(){
-        return;
+    public void moverDeque(int quant){
+        Node current = this.tail;
+
+        if(quant > this.length){
+            throw new RuntimeException("quantidade maior que o tamanho da lista");
+        }
+        else if(quant == this.length){
+            System.out.println("elementos já estão ordenados");
+            return;
+        }
+
+        for(int i = 0; i< quant; i++){
+            current = current.prev;
+        }
+
+        this.tail.next = this.head;
+        this.head.prev = this.tail;
+        this.head = current;
+        this.tail = current.prev;
+        this.tail.next = null;
+        this.head.prev = null;
+        printQueue();
     }
 
 
 
     public static void main(String[] args){
+
+        ex2 deque = new ex2();
+
+        deque.enqueueRigth(1);
+        deque.enqueueRigth(2);
+        deque.enqueueRigth(3);
+        // deque.enqueueRigth(6);
+        // deque.enqueueRigth(0);
+        // deque.enqueueRigth(7);
+        // deque.enqueueRigth(8);
+        System.out.println("----------------");
+
+        deque.moverDeque(0);
+        // deque.moverDeque(1);
 
     }
 
