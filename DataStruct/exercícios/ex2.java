@@ -34,15 +34,14 @@ public class ex2 {
         if(this.length == 0){
             this.head = newNode;
             this.tail = newNode;
-            this.length++;
-            printQueue();
-            return;
+        }
+        else{
+            // entro pelo lado esquerdo, e agora é a head
+            newNode.next = this.head;
+            this.head.prev = newNode;
+            this.head = newNode;
         }
 
-        // entro pelo lado esquerdo, e agora é a head
-        newNode.next = this.head;
-        this.head.prev = newNode;
-        this.head = newNode;
         this.length++;
         printQueue();
         return;
@@ -58,15 +57,14 @@ public class ex2 {
         if(this.length == 0){
             this.head = newNode;
             this.tail = newNode;
-            this.length++;
-            printQueue();
-            return;
         }
+        else{
+            // entro pelo lado direito, ou seja pela tail
+            newNode.prev = this.tail;
+            this.tail.next = newNode;
+            this.tail = newNode;
 
-        // entro pelo lado direito, ou seja pela tail
-        newNode.prev = this.tail;
-        this.tail.next = newNode;
-        this.tail = newNode;
+        }
         this.length++;
         printQueue();
         return;
