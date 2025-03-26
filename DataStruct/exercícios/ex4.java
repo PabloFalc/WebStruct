@@ -13,7 +13,7 @@ class Player{
     }
 
     public void removePoints(int points){
-        this.points = (this.points <= points) ? 0 : this.points - points;  
+        this.points = (this.points <= points) ? 0 : this.points-points;  
     }
 }
 
@@ -72,28 +72,20 @@ public class ex4 {
     public void add(String name){
         Player newPlayer = new Player(name);
         Node newNode = new Node(newPlayer);
-        // if(this.tail!= null){
-        //     System.out.println("this.tail"+ this.tail.player.name);
-        //     System.out.println("this.head"+ this.head.player.name);
-        // }
-        // else{
-        //     System.out.println("fodase");
-        // }
+
 
         if(length == 0){
             this.head = newNode;
             this.tail = newNode;
         }
         else{
-            // System.out.println("-------------------");
+
             newNode.next = this.tail;
             this.tail.prev = newNode;
             this.tail = newNode;
-            // System.out.println(this.head.prev.player.name);
         }
         length++;
-        // System.out.println("this.head 2: " +this.head.player.name);
-        // System.out.println("this.TAIL 2: " +this.tail.player.name);
+
     }
 
     public Node search(String name){
@@ -120,40 +112,44 @@ public class ex4 {
             System.out.println("não encontado");
             return;
         }
-        else{
-            node.removePoints(value);
-            if(node.getPoints() < node.prev.getPoints()){
+ 
+        node.removePoints(value);
+        if(node == this.tail){
+           
+        }
 
-                Node current = node.prev;
-                while (node.getPoints() < current.prev.getPoints()|| current != this.tail){
-                    current = current.prev;
-                }
+        else if(node.getPoints() < node.prev.getPoints()){
 
-                if(node == this.head){
-                    this.head = this.head.prev;
-                    this.head.next = null;
-                }
-                else{
-                    node.prev.next = node.next;
-                    node.next.prev = node.prev;
-                }
-
-                if(current == this.tail){
-                    node.prev = null;
-                    node.next = this.tail;
-                }
-                
-                else{
-                    node.prev = current.prev;
-                    node.next = current;
-                }
+            Node current = node;
+            System.out.println(current.prev.getName());
+            while (current.prev != null && node.getPoints() < current.prev.getPoints()){
+                System.out.println("curernt: " +current.getName());
+                current = current.prev;
+            }
+            if(node == this.head){
+                this.head = node.prev;
+                node.prev = null;
+                this.head.next = null;
+            }
+            else{
+                node.prev.next = node.next;
+                node.next.prev = node.prev;
+            } 
+            if(current == this.tail){
+                node.prev = null;
+                node.next = this.tail;
+                this.tail.prev = node;
+                this.tail = node;
+            }
+            
+            else{
+                node.prev = current.prev;
+                node.next = current;
                 current.prev = node;
                 node.prev.next = node;
             }
-            printQueue();
-
         }
-
+        printQueue();
     }
 
     public void addPoints(int value, String name){
@@ -165,44 +161,47 @@ public class ex4 {
             System.out.println("não encontrado");
             return;
         }
+
         node.addPoints(value);
-
-        if(this.head == node){
-            return;
+        if(node == this.head){
         }
-
-
-        if(node.getPoints() > node.next.getPoints()){
+        else if(node.getPoints() > node.next.getPoints()){
             Node current = node;
-            while (node.getPoints() > current.getPoints()|| current!= this.head) {
+            while (current.next != null && node.getPoints() > current.next.getPoints()) {
+         
+                
                 current = current.next;
             }
+      
+      
             if(node == this.tail){
+
                 node.next.prev = null;
                 this.tail = node.next;
                 node.next = null;
-            }
-            else{      
-                node.prev.next = node.next;
+            }else{
+          
+                node.prev.next =  node.next;
                 node.next.prev = node.prev;
-                node.prev = null;
-                node.next = null;
             }
-
-            if(current == this.head && node.getPoints() > head.getPoints()){
-                this.head.next = node;
+            if(current==this.head){
+    
                 node.prev = this.head;
+                this.head.next = node;
+                node.next = null;
                 this.head = node;
             }
             else{
                 node.next = current.next;
                 node.prev = current;
-                current.next.prev = node;
-                current.next = current;
+                current.next = node;
+                node.next.prev = node;
             }
+      
         }
-
-
+        else{ 
+        }
+        printQueue();
 
 
     }
@@ -219,27 +218,35 @@ public class ex4 {
 
         // Percorre a lista e imprime no formato correto
         while (current != null) {
-            System.out.print("(" + current.player.name + ") -> ");
+            System.out.print("( ["+current.getPoints()+"] " + current.getName() + ") -> ");
             current = current.next;
         }
         System.out.println("null");  // Indica o final da lista
     }
 
     public static void main(String[] args){
-
+        //                  java DataStruct/exercícios/ex4.java 
         ex4 fila = new ex4();
 
 
-        fila.add("Joao");
+        fila.add("Kendrick");
+        fila.add("Travis");
+        fila.add("Kratos");
+        fila.add("Hollow");
         fila.printQueue();
-        fila.add("Pedro");
-        fila.printQueue();
-        fila.add("Po");
-        fila.printQueue();
-        fila.addPoints(10,"Po");
-        fila.printQueue();
-        // fila.add("Joao");
-
+        fila.addPoints(10,"Kratos");
+        fila.addPoints(5, "Hollow");
+        fila.addPoints(7, "Kendrick");
+        fila.addPoints(1, "Travis");
+        fila.addPoints(10, "Kratos");
+      
+        System.out.println("antes de remover");
+        System.out.println("");
+        
+        fila.removePoints(14, "Kratos");
+        fila.removePoints(5, "Hollow");
+        fila.removePoints(7, "Kendrick");
+        
 
     }
 

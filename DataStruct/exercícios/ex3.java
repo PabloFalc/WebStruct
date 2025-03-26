@@ -177,8 +177,7 @@ public class ex3 {
     private Node loop(int initPos){
 
         if(initPos < 0 || initPos > this.length)throw new RuntimeException("louco");
-
-
+        
         Node current = isNearHeadOrTail(initPos) ? this.head : this.tail;
         int position = isNearHeadOrTail(initPos) ? initPos : length - (initPos +1);
 
@@ -186,12 +185,7 @@ public class ex3 {
         for(int i = 0; i < position ; i++ ) {
             current = isNearHeadOrTail(initPos) ? current.next : current.prev;
         }
-      
         return current;
-        
-
-
-
     }
         
 
