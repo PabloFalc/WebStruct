@@ -9,7 +9,7 @@ class Node<Type> {
 }
 
 
-public class ex1 {
+public class ex1<Type> {
     public Node<Type> head;
 
     public ex1(){
@@ -108,7 +108,8 @@ public class ex1 {
         Node<Type> firstPair = null, lastPair = null;
 
 
-        while(current!= null){
+        while(current != null){
+
             if(isPair(current)){
                 if (firstPair == null && current == this.head) {
                     this.head = this.head.next;
@@ -129,10 +130,18 @@ public class ex1 {
                 current.next = null;
                 lastPair.next = current;
                 lastPair = current; 
-                current = currentParent.next;
-                
+                current = currentParent.next;          
             }
+            else{
+                currentParent = current;
+                current = current.next;
+            }
+
         }
+        if(firstPair != null){
+            currentParent.next = firstPair;
+        }
+        
     }
 
 
@@ -192,9 +201,9 @@ public class ex1 {
 
     
     public static void main(String[] argumentos) {
-        DinamicList<Integer> list = new DinamicList<>();
+        ex1<Integer> list = new ex1<>();
 
-        //       java DataStruct/list/DinamicList.java
+        //       java DataStruct/exercícios/ex1.java
 
         // list.move();
         list.move();
@@ -211,12 +220,16 @@ public class ex1 {
         list.add(15, 8);
         list.printList();
         System.out.println("------Depois da ordem---------");
-        list.pairOrder();
+        list.move();
         list.printList();
-        list.add(155, 9);
+        list.add(150, 2);
         list.printList();
-        list.pairOrder();
+        list.move();
         list.printList();
+        list.move();
+        list.printList();
+        list.move();
+        
         
     }
 }
