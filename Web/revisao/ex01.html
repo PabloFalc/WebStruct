@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>exercício 1</title>
+    </head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .pai {
+            display: flex;
+            height: 100dvh;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .div {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <body>
+        <div class="pai">
+            <div class="div">
+                <h1>Veja o que acontece</h1>
+                <button onclick="handleClick()">Botão</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        const background = document.querySelector(".pai");
+
+        const handleClick = () => {
+            background.style.backgroundColor = "#141414";
+            background.style.color = "white";
+        };
+    </script>
+</html>
